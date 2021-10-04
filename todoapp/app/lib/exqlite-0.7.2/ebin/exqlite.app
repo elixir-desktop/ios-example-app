@@ -1,0 +1,13 @@
+{application,exqlite,
+             [{applications,[kernel,stdlib,elixir,logger,db_connection]},
+              {description,"An Elixir SQLite3 library"},
+              {modules,['Elixir.DBConnection.Query.Exqlite.Query',
+                        'Elixir.Enumerable.Exqlite.Stream','Elixir.Exqlite',
+                        'Elixir.Exqlite.Basic','Elixir.Exqlite.Connection',
+                        'Elixir.Exqlite.Error','Elixir.Exqlite.Pragma',
+                        'Elixir.Exqlite.Query','Elixir.Exqlite.Result',
+                        'Elixir.Exqlite.Sqlite3','Elixir.Exqlite.Sqlite3NIF',
+                        'Elixir.Exqlite.Stream',
+                        'Elixir.String.Chars.Exqlite.Query']},
+              {registered,[]},
+              {vsn,"0.7.2"}]}.

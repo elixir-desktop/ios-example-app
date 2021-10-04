@@ -1,0 +1,77 @@
+## This file is a PO Template file.
+##
+## "msgid"s here are often extracted from source code.
+## Add new translations manually only if they're dynamic
+## translations that can't be statically extracted.
+##
+## Run "mix gettext.extract" to bring this file up to
+## date. Leave "msgstr"s empty as changing them here as no
+## effect: edit them in PO (.po) files instead.
+msgid ""
+msgstr ""
+
+#, elixir-format
+#: lib/todo_app/menubar.eex:14
+msgid "About"
+msgstr ""
+
+#, elixir-format
+#: lib/todo_app/menubar.eex:2 lib/todo_app/menubar.ex:14
+msgid "File"
+msgstr ""
+
+#, elixir-format
+#: lib/todo_app/menubar.eex:13
+msgid "Help"
+msgstr ""
+
+#, elixir-format
+#: lib/todo_app/menu.eex:2
+msgid "Open"
+msgstr ""
+
+#, elixir-format
+#: lib/todo_app/menu.eex:12 lib/todo_app/menubar.eex:11
+#: lib/todo_app/menubar.ex:22
+msgid "Quit"
+msgstr ""
+
+#, elixir-format
+#: lib/todo_app/menubar.ex:56
+msgid "Sample Elixir Desktop App!"
+msgstr ""
+
+#, elixir-format
+#: lib/todo_app/menubar.ex:24
+msgid "Extra"
+msgstr ""
+
+#, elixir-format
+#: lib/todo_app/menubar.ex:27
+msgid "Open Browser"
+msgstr ""
+
+#, elixir-format
+#: lib/todo_app/menubar.ex:25
+msgid "Show Notification"
+msgstr ""
+
+#, elixir-format
+#: lib/todo_app/menubar.ex:26
+msgid "Show Observer"
+msgstr ""
+
+#, elixir-format
+#: lib/todo_web/templates/layout/root.html.leex:8
+msgid " · Your Todos"
+msgstr ""
+
+#, elixir-format
+#: lib/todo_web/live/todo_live.html.leex:4
+msgid "Add new todo item..."
+msgstr ""
+
+#, elixir-format
+#: lib/todo_web/live/todo_live.html.leex:2
+msgid "My Todo List"
+msgstr ""
