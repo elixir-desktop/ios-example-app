@@ -14,7 +14,7 @@ This xcode project wraps the [Desktop Sample App](https://github.com/elixir-desk
     `git clone https://github.com/elixir-desktop/ios-example-app.git`
 1. Build the dependencies:
 
-    `carthage update --use-xcframeworks`
+    `cd ios-example-app && carthage update --use-xcframeworks`
 
 1. Open the ios-example-app project with xcode
 1. Start the App
