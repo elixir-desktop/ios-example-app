@@ -5,14 +5,19 @@ This xcode project wraps the [Desktop Sample App](https://github.com/elixir-desk
 ## How to build & run
 
 1. Install xcode from the app store.
+1. Install brew, elixir, git, carthage, npm
 
-2. fork / git clone this project to your local disk:
+    `brew install elixir carthage git npm`
 
-`git clone https://github.com/elixir-desktop/ios-example-app.git`
+1. fork / git clone this project to your local disk:
 
-3. Open the ios-example-app project with xcode
+    `git clone https://github.com/elixir-desktop/ios-example-app.git`
+1. Build the dependencies:
 
-4. Start the App
+    `carthage update --use-xcframeworks`
+
+1. Open the ios-example-app project with xcode
+1. Start the App
 
 ## Known todos
 
