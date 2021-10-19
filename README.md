@@ -43,6 +43,6 @@ This sample only launch the elixir app and shows it in a WKWebView. There is no 
 
 ## Architecture
 
-![App](/iox_elixir.png?raw=true "Architecture")
+![App](/ios_elixir.png?raw=true "Architecture")
 
 The iOS App is initializing the Erlang VM and starting it up with a new environment variable `BRIDGE_PORT`. This environment variable is used by the `Bridge` Elixir project to connect to a local TCP server _inside the iOS app_. Through this new TCP communication channel all calls that usually would go to `wxWidgets` are now redirected. The iOS side of things implements handling in `Bridge.swift`.  
