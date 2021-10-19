@@ -1,4 +1,4 @@
-name: Android CI
+name: iOS CI
 
 on: ["push", "pull_request"]
 
@@ -25,7 +25,9 @@ jobs:
     - name: Build with XCode
       run: |
         carthage update --use-xcframeworks 
-        xcodebuild clean build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
+        xcodebuild -sdk iphonesimulator -arch arm64
+
+    # xcodebuild clean build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
 
     # - name: Upload APK
     #   uses: actions/upload-artifact@v1
