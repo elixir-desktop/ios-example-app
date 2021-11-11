@@ -4,6 +4,7 @@ This xcode project wraps the [Desktop Sample App](https://github.com/elixir-desk
 
 ## How to build & run
 
+1. Install the custom OTP version on your machine (*see known todos)
 1. Install xcode from the app store.
 1. Install brew, elixir, git, carthage, npm
 
@@ -20,6 +21,23 @@ This xcode project wraps the [Desktop Sample App](https://github.com/elixir-desk
 1. Start the App
 
 ## Known todos
+
+### Update built-in Runtime
+
+To have the embedded Erlang match the one you use for compilation you can install
+the same version as the embedded:
+
+```bash
+mkdir -p ~/projects/
+kerl build git https://github.com/diodechain/otp.git diode/beta 24.beta
+kerl install 24.beta ~/projects/24.beta
+```
+
+The current runtime that is precompiled is based on dev branch of OTP currently under
+https://github.com/diodechain/otp/tree/diode/beta
+Because the included OTP apps have different versions such as `crypto-5.0.3` you can only compile this project 
+with the very same OTP version. You can probably build it with `kerl`. But I'll update the runtime to a newer stable
+OTP build soon`(tm)` because all neccesary changes have been merged by the Erlang team already.
 
 ### Can only emulate on Apple M1 and on real iPhones
 

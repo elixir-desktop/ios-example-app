@@ -17,6 +17,7 @@
 		EC8A1FC92702328F00054F1C /* app.zip in Resources */ = {isa = PBXBuildFile; fileRef = EC8A1FC82702328F00054F1C /* app.zip */; };
 		EC8A1FCF2704E68400054F1C /* liberlang.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC8A1FCE2704E68400054F1C /* liberlang.xcframework */; };
 		EC8A1FD12704E9AB00054F1C /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC8A1FD02704E9AB00054F1C /* WebView.swift */; };
+		EC90CFEF273D772900C9A3F3 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = EC90CFEE273D772900C9A3F3 /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		EC8A1FC82702328F00054F1C /* app.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = app.zip; sourceTree = "<group>"; };
 		EC8A1FCE2704E68400054F1C /* liberlang.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = liberlang.xcframework; sourceTree = "<group>"; };
 		EC8A1FD02704E9AB00054F1C /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
+		EC90CFEE273D772900C9A3F3 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +54,7 @@
 		EC712AA326F6964C0066E483 = {
 			isa = PBXGroup;
 			children = (
+				EC90CFEE273D772900C9A3F3 /* README.md */,
 				EC8A1FC62702233000054F1C /* ZIPFoundation.xcframework */,
 				EC8A1FB426FE752000054F1C /* native-lib.cpp */,
 				EC8A1FB526FE752000054F1C /* native-lib.hpp */,
@@ -154,6 +157,7 @@
 			files = (
 				EC8A1FC92702328F00054F1C /* app.zip in Resources */,
 				EC712AB726F6964C0066E483 /* Preview Assets.xcassets in Resources */,
+				EC90CFEF273D772900C9A3F3 /* README.md in Resources */,
 				EC712AB426F6964C0066E483 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -178,7 +182,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "#!/bin/bash\n\n# Setting up the PATH environment \neval $(/opt/homebrew/bin/brew shellenv)\nexport PATH=\"$HOME/elixir/bin:$PATH\"\nexport NVM_DIR=\"$HOME/.nvm\"\n[ -s \"$NVM_DIR/nvm.sh\" ] && \\. \"$NVM_DIR/nvm.sh\"  # This loads nvm\n\nBASE=`pwd`\nexport MIX_ENV=prod\nexport MIX_TARGET=ios\n\nif [ ! -d \"elixir-app\" ]; then\n  git clone https://github.com/elixir-desktop/desktop-example-app.git elixir-app\n  cd elixir-app\n  mix deps.get\nelse\n  cd elixir-app\nfi\n\nif [ ! -d \"assets/node_modules\" ]; then\n  cd assets && npm i && cd ..\nfi\n\nif [ -f \"$BASE/todoapp/app.zip\" ]; then\n  rm \"$BASE/todoapp/app.zip\"\nfi\n\nmix assets.deploy && \\\n  mix release --overwrite && \\\n  cd _build/ios_prod/rel/todo_app && \\\n  zip -9r \"$BASE/todoapp/app.zip\" lib/ releases/ --exclude \"*.so\"\n";
+			shellScript = "#!/bin/bash\nset -e\n# Setting up the PATH environment \neval $(/opt/homebrew/bin/brew shellenv)\n# Ensure compilation is using the correct runtime\n. ~/projects/24.beta/activate\nexport PATH=\"$HOME/elixir/bin:$PATH\"\nexport NVM_DIR=\"$HOME/.nvm\"\n[ -s \"$NVM_DIR/nvm.sh\" ] && \\. \"$NVM_DIR/nvm.sh\"  # This loads nvm\n\nBASE=`pwd`\nexport MIX_ENV=prod\nexport MIX_TARGET=ios\n\nif [ ! -d \"elixir-app\" ]; then\n  git clone https://github.com/elixir-desktop/desktop-example-app.git elixir-app\n  cd elixir-app\n  mix deps.get\nelse\n  cd elixir-app\nfi\n\nif [ ! -d \"assets/node_modules\" ]; then\n  cd assets && npm i && cd ..\nfi\n\nif [ -f \"$BASE/todoapp/app.zip\" ]; then\n  rm \"$BASE/todoapp/app.zip\"\nfi\n\nmix assets.deploy && \\\n  mix release --overwrite && \\\n  cd _build/ios_prod/rel/todo_app && \\\n  zip -9r \"$BASE/todoapp/app.zip\" lib/ releases/ --exclude \"*.so\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
