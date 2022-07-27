@@ -38,7 +38,7 @@ class Bridge {
     private var connectionsByID: [Int: ServerConnection] = [:]
 
     init() throws {
-        home = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask)[0].appendingPathComponent("io.elixirdesktop.example")
+        home = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask)[0].appendingPathComponent(Bundle.main.bundleIdentifier!)
         listener = try! NWListener(using: .tcp, on: NWEndpoint.Port.any)
         listener.stateUpdateHandler = self.stateDidChange(to:)
         listener.newConnectionHandler = self.didAccept(nwConnection:)
