@@ -11,11 +11,7 @@ jobs:
     - uses: actions/checkout@v1
     - name: Install Elixir
       run: |
-        brew install erlang carthage git npm
-        mkdir $HOME/elixir && cd $HOME/elixir
-        wget https://github.com/elixir-lang/elixir/releases/download/v1.11.4/Precompiled.zip
-        unzip Precompiled.zip
-        echo "$HOME/elixir/bin" >> $GITHUB_PATH
+        brew install elixir erlang carthage git npm
 
     - name: Set up hex & rebar
       run: |
