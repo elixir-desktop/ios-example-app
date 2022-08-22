@@ -51,6 +51,12 @@ const char* startErlang(std::string root_dir, std::string log_dir, const char *a
             "test_main",
             "-sbwt",
             "none",
+            // Reduced literal super carrier to 10mb because of spurious error message on 9th gen iPads
+            // "erts_mmap: Failed to create super carrier of size 1024 MB"
+            "-MIscs",
+            "10",
+            //"-Mea",
+            //"min",
             "--",
             // "-init_debug",
             "-root",
