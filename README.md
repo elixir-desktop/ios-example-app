@@ -6,14 +6,17 @@ This xcode project wraps the [Desktop Sample App](https://github.com/elixir-desk
 
 1. Install the custom OTP version on your machine (*see known todos)
 1. Install xcode from the app store.
-1. Install Erlang-OTP in the same version as this runtime edition
-
-`asdf install erlang 25.0.4 --with-ssl=$(brew --prefix openssl)`
-`asdf install elixir 1.13.4-otp-25`
-
 1. Install brew, git, carthage, npm
 
-    `brew install carthage git npm`
+    `brew install carthage git openssl@1.1 npm`
+
+1. Install Erlang-OTP in the same version as this runtime edition
+
+```
+export KERL_CONFIGURE_OPTIONS="--without-javac --with-ssl=$(brew --prefix openssl@1.1)"
+asdf install erlang 25.0.4 --with-ssl=$(brew --prefix openssl)`
+asdf install elixir 1.13.4-otp-25
+```
 
 1. fork / git clone this project to your local disk:
 
