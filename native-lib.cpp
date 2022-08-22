@@ -86,6 +86,8 @@ const char* startErlang(std::string root_dir, std::string log_dir, const char *a
             config_path.c_str(),
             "-boot",
             boot_path.c_str(),
+            "-bindir",
+            bin_dir.c_str(),
             "-boot_var",
             "RELEASE_LIB",
             lib_path.c_str(),

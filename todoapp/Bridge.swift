@@ -83,6 +83,7 @@ class Bridge {
         switch newState {
         case .ready:
             print("Bridge Server ready. Starting Elixir")
+            setEnv(name: "ELIXIR_DESKTOP_OS", value: "ios");
             setEnv(name: "BRIDGE_PORT", value: (listener.port?.rawValue.description)!);
             // not really the home directory, but persistent between app upgrades (yes?)
             setEnv(name: "HOME", value: home.path);
