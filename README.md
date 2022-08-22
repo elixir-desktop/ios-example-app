@@ -6,13 +6,23 @@ This xcode project wraps the [Desktop Sample App](https://github.com/elixir-desk
 
 1. Install the custom OTP version on your machine (*see known todos)
 1. Install xcode from the app store.
-1. Install brew, elixir, git, carthage, npm
+1. Install brew, git, carthage, npm
 
-    `brew install elixir carthage git npm`
+    `brew install carthage git openssl@1.1 npm`
+
+1. Install Erlang-OTP (with openssl) in the same version 25.0.4 as the bundled runtime edition:
+
+```
+export DED_LDFLAGS_CONFTEST="-bundle"
+export KERL_CONFIGURE_OPTIONS="--without-javac --with-ssl=$(brew --prefix openssl@1.1)"
+asdf install erlang 25.0.4 --with-ssl=$(brew --prefix openssl@1.1)`
+asdf install elixir 1.13.4-otp-25
+```
 
 1. fork / git clone this project to your local disk:
 
     `git clone https://github.com/elixir-desktop/ios-example-app.git`
+
 1. Build the dependencies:
 
     `cd ios-example-app && carthage update --use-xcframeworks`
@@ -21,27 +31,6 @@ This xcode project wraps the [Desktop Sample App](https://github.com/elixir-desk
 1. Start the App
 
 ## Known todos
-
-### Update built-in Runtime
-
-To have the embedded Erlang match the one you use for compilation you can install
-the same version as the embedded:
-
-```bash
-mkdir -p ~/projects/
-kerl build git https://github.com/diodechain/otp.git diode/beta 24.beta
-kerl install 24.beta ~/projects/24.beta
-```
-
-The current runtime that is precompiled is based on dev branch of OTP currently under
-https://github.com/diodechain/otp/tree/diode/beta
-Because the included OTP apps have different versions such as `crypto-5.0.3` you can only compile this project 
-with the very same OTP version. You can probably build it with `kerl`. But I'll update the runtime to a newer stable
-OTP build soon`(tm)` because all neccesary changes have been merged by the Erlang team already.
-
-### Can only emulate on Apple M1 and on real iPhones
-
-The bundled binaries are only for the real iPhone as well as the Apple M1 mac machines. If you've got an intel based x86 mac the emulator won't run at the moment.
 
 ### Menus and other integration not yet available
 

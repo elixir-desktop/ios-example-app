@@ -1,0 +1,35 @@
+#!/bin/bash
+set -e
+
+BASE=`pwd`
+export MIX_ENV=prod
+export MIX_TARGET=ios
+
+if [ ! -d "elixir-app" ]; then
+  git clone https://github.com/elixir-desktop/desktop-example-app.git elixir-app
+fi
+
+# using the right runtime versions
+if [ ! -f "elixir/.tool-versions" ]; then
+  cp .tool-versions elixir-app/
+fi
+
+cd elixir-app
+
+if [ ! -d "deps/desktop" ]; then
+  mix deps.get
+fi
+
+if [ ! -d "assets/node_modules" ]; then
+  cd assets && npm i && cd ..
+fi
+
+if [ -f "$BASE/todoapp/app.zip" ]; then
+  rm "$BASE/todoapp/app.zip"
+fi
+
+mix assets.deploy && \
+  mix release --overwrite && \
+  cd _build/ios_prod/rel/todo_app && \
+  zip -9r "$BASE/todoapp/app.zip" lib/ releases/ --exclude "*.so"
+
