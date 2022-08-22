@@ -12,12 +12,12 @@ This xcode project wraps the [Desktop Sample App](https://github.com/elixir-desk
 
 1. Install Erlang-OTP (with openssl) in the same version 25.0.4 as the bundled runtime edition:
 
-```
-export DED_LDFLAGS_CONFTEST="-bundle"
-export KERL_CONFIGURE_OPTIONS="--without-javac --with-ssl=$(brew --prefix openssl@1.1)"
-asdf install erlang 25.0.4 --with-ssl=$(brew --prefix openssl@1.1)`
-asdf install elixir 1.13.4-otp-25
-```
+    ```
+    export DED_LDFLAGS_CONFTEST="-bundle"
+    export KERL_CONFIGURE_OPTIONS="--without-javac --with-ssl=$(brew --prefix openssl@1.1)"
+    asdf install erlang 25.0.4 --with-ssl=$(brew --prefix openssl@1.1)`
+    asdf install elixir 1.13.4-otp-25
+    ```
 
 1. fork / git clone this project to your local disk:
 
