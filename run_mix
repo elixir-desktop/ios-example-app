@@ -9,6 +9,11 @@ if [ ! -d "elixir-app" ]; then
   git clone https://github.com/elixir-desktop/desktop-example-app.git elixir-app
 fi
 
+# using the right runtime versions
+if [ ! -f "elixir/.tool-versions" ]; then
+  cp .tool-versions elixir-app/
+fi
+
 cd elixir-app
 
 if [ ! -d "deps/desktop" ]; then
