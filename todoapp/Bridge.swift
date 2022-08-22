@@ -60,6 +60,31 @@ class Bridge {
             try unzipApp(dest: appdir)
             UserDefaults.standard.set(infoDate.description, forKey: "app_build_date")
         }
+        
+        let inet_rc = appdir.appendingPathComponent("inetrc")
+        setEnv(name: "ERL_INETRC", value: inet_rc.path)
+        //if (!FileManager.default.fileExists(atPath: inet_rc.path)) {
+            let rc = #"""
+            %% -- ERLANG INET CONFIGURATION FILE --
+            %% read the hosts file
+            %% {file, hosts, "/etc/hosts"}.
+            %% add a particular host
+            %% {host, {134,138,177,105}, ["finwe"]}.
+            %% do not monitor the hosts file
+            %% {hosts_file, ""}.
+            %% read and monitor nameserver config from here
+            %% {resolv_conf, "/usr/local/etc/resolv.conf"}.
+            %% enable EDNS, 0 means enable YES!
+            {edns,0}.
+            {alt_nameserver, {8,8,8,8}}.
+            %% disable caching
+            %% {cache_size, 0}.
+            %% specify lookup method
+            {lookup, [dns]}.
+            """#
+            print("'\(rc)'")
+            try! rc.write(to: inet_rc, atomically: true, encoding: .utf8)
+        //}
 
         print("Server starting...")
         listener.start(queue: .global())
@@ -86,10 +111,10 @@ class Bridge {
             setEnv(name: "ELIXIR_DESKTOP_OS", value: "ios");
             setEnv(name: "BRIDGE_PORT", value: (listener.port?.rawValue.description)!);
             // not really the home directory, but persistent between app upgrades (yes?)
-            setEnv(name: "HOME", value: home.path);
-            // not used on iOS but needs to be defined
+            setEnv(name: "HOME", value: home.path)
+            // BINDIR not used on iOS but needs to be defined
             let bindir = home.appendingPathComponent("bin")
-            setEnv(name: "BINDIR", value: bindir.path);
+            setEnv(name: "BINDIR", value: bindir.path)
             
             let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
             let logdir = urls[0].path
@@ -219,7 +244,7 @@ class ServerConnection {
 
                 var response = ref
                 if (method == ":getOsDescription") {
-                    response.append(self.dataToList(string: "iOS"))
+                    response.append(self.dataToList(string: "iOS \(UIDevice().model)"))
                 } else if (method == ":getCanonicalName") {
                     //val primaryLocale = getCurrentLocale(applicationContext)
                     //var locale = "${primaryLocale.language}_${primaryLocale.country}"
