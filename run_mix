@@ -5,6 +5,9 @@ BASE=`pwd`
 export MIX_ENV=prod
 export MIX_TARGET=ios
 
+mix local.hex --force --if-missing
+mix local.rebar --force --if-missing
+
 if [ ! -d "elixir-app" ]; then
   git clone https://github.com/elixir-desktop/desktop-example-app.git elixir-app
 fi
@@ -17,8 +20,6 @@ fi
 cd elixir-app
 
 if [ ! -d "deps/desktop" ]; then
-  mix local.hex --force
-  mix local.rebar --force
   mix deps.get
 fi
 
