@@ -185,7 +185,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "#!/bin/bash\nset -e\n# Setting up the PATH environment\n[ -s /opt/homebrew/bin/brew ] && eval $(/opt/homebrew/bin/brew shellenv)\n[ -s /usr/local/bin/brew ] && eval $(/usr/local/bin/brew shellenv)\n\nexport NVM_DIR=\"$HOME/.nvm\"\n[ -s \"$NVM_DIR/nvm.sh\" ] && \\. \"$NVM_DIR/nvm.sh\"  # This loads nvm\n[ -s \"$HOME/.asdf/asdf.sh\" ] && \\. $HOME/.asdf/asdf.sh # This loads asdf\n\n./run_mix\n";
+			shellScript = "#!/bin/bash\nset -e\n\n./run_mix\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
