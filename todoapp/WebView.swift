@@ -1,3 +1,9 @@
+//
+//  WebView.swift
+//
+//  Created by Dominic Letz on 19.09.22
+//
+
 import Foundation
 import Combine
 
@@ -5,9 +11,8 @@ import SwiftUI
 import UIKit
 import WebKit
 
-final class WebViewController: NSObject, UIViewRepresentable, WKNavigationDelegate, WKScriptMessageHandler {
+final class WebView: NSObject, WKNavigationDelegate, WKScriptMessageHandler {
     var webview: WKWebView
-    var lastURL: URL?
     var finish: (() -> ())?
     
     override init() {
@@ -87,25 +92,6 @@ final class WebViewController: NSObject, UIViewRepresentable, WKNavigationDelega
             assertionFailure("JavaScript error: \(error)")
         default:
             assertionFailure("Received invalid message: \(message.name)")
-        }
-    }
-    
-    func makeUIView(context: Context) -> WKWebView {
-        print("makeUIView")
-        return webview
-    }
-    
-    func updateUIView(_ webView: WKWebView, context: Context) {
-        print("updateUIView")
-        if lastURL != nil {
-            webview.load(URLRequest(url: lastURL!))
-        }
-    }
-    
-    func loadURL(url: URL) {
-        lastURL = url
-        if lastURL != nil {
-            webview.load(URLRequest(url: lastURL!))
         }
     }
 }

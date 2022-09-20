@@ -25,7 +25,7 @@ struct ContentView: View {
             DispatchQueue.main.async {
                 let bridge = try! Bridge()
                 self.webview = WebViewController()
-                self.webview?.onFinish {
+                self.webview?.webview.onFinish {
                     self.isActive = true
                 }
                 bridge.setWebView(view: self.webview!)

@@ -17,6 +17,8 @@ fi
 cd elixir-app
 
 if [ ! -d "deps/desktop" ]; then
+  mix local.hex --force
+  mix local.rebar --force
   mix deps.get
 fi
 

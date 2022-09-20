@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EC01B27228D9F1000067BAEE /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC01B27128D9F1000067BAEE /* WebViewController.swift */; };
 		EC712AB026F6964C0066E483 /* TodoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC712AAF26F6964C0066E483 /* TodoApp.swift */; };
 		EC712AB226F6964C0066E483 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC712AB126F6964C0066E483 /* ContentView.swift */; };
 		EC712AB426F6964C0066E483 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EC712AB326F6964C0066E483 /* Assets.xcassets */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		EC01B27128D9F1000067BAEE /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		EC712AAC26F6964C0066E483 /* todoapp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = todoapp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC712AAF26F6964C0066E483 /* TodoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoApp.swift; sourceTree = "<group>"; };
 		EC712AB126F6964C0066E483 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -80,6 +82,7 @@
 				EC712AB126F6964C0066E483 /* ContentView.swift */,
 				EC8A1FBB26FF226000054F1C /* Bridge.swift */,
 				EC8A1FD02704E9AB00054F1C /* WebView.swift */,
+				EC01B27128D9F1000067BAEE /* WebViewController.swift */,
 				EC712AB326F6964C0066E483 /* Assets.xcassets */,
 				EC8A1FC82702328F00054F1C /* app.zip */,
 				EC712AB826F6964C0066E483 /* Info.plist */,
@@ -192,6 +195,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EC8A1FBC26FF226000054F1C /* Bridge.swift in Sources */,
+				EC01B27228D9F1000067BAEE /* WebViewController.swift in Sources */,
 				EC8A1FD12704E9AB00054F1C /* WebView.swift in Sources */,
 				EC712AB226F6964C0066E483 /* ContentView.swift in Sources */,
 				EC712AB026F6964C0066E483 /* TodoApp.swift in Sources */,

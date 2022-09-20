@@ -4,7 +4,6 @@ This xcode project wraps the [Desktop Sample App](https://github.com/elixir-desk
 
 ## How to build & run
 
-1. Install the custom OTP version on your machine (*see known todos)
 1. Install xcode from the app store.
 1. Install brew, git, carthage, npm
 
