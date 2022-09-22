@@ -92,7 +92,7 @@ class Bridge {
     
     func setEnv(name: String, value: String) {
         print("setenv \(name) \(value)")
-        setenv(name, value, 0)
+        setenv(name, value, 1)
     }
     
     func zipFile() -> URL {
