@@ -65,20 +65,9 @@ class Bridge {
         setEnv(name: "ERL_INETRC", value: inet_rc.path)
         //if (!FileManager.default.fileExists(atPath: inet_rc.path)) {
             let rc = #"""
-            %% -- ERLANG INET CONFIGURATION FILE --
-            %% read the hosts file
-            %% {file, hosts, "/etc/hosts"}.
-            %% add a particular host
-            %% {host, {134,138,177,105}, ["finwe"]}.
-            %% do not monitor the hosts file
-            %% {hosts_file, ""}.
-            %% read and monitor nameserver config from here
-            %% {resolv_conf, "/usr/local/etc/resolv.conf"}.
             %% enable EDNS, 0 means enable YES!
             {edns,0}.
             {alt_nameserver, {8,8,8,8}}.
-            %% disable caching
-            %% {cache_size, 0}.
             %% specify lookup method
             {lookup, [dns]}.
             """#
@@ -128,8 +117,6 @@ class Bridge {
     }
 
     func stateDidChange(to newState: NWListener.State) {
-        print("Server new state: \(newState)")
-
         switch newState {
         case .ready:
             if erlangStarted {
