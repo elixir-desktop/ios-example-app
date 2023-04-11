@@ -12,9 +12,11 @@ import SwiftUI
 
 class Bridge {
     var webview: WebViewController?
-    let listener: NWListener
+    var listener: NWListener?
     let home: URL
     var lastURL: URL?
+    static public var instance: Bridge?
+    var erlangStarted = false
     
     func setWebView(view :WebViewController) {
         self.webview = view
@@ -38,10 +40,8 @@ class Bridge {
     private var connectionsByID: [Int: ServerConnection] = [:]
 
     init() throws {
+        print("bridge init()")
         home = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask)[0].appendingPathComponent(Bundle.main.bundleIdentifier!)
-        listener = try! NWListener(using: .tcp, on: NWEndpoint.Port.any)
-        listener.stateUpdateHandler = self.stateDidChange(to:)
-        listener.newConnectionHandler = self.didAccept(nwConnection:)
         
         // Extracting the app
         let infoAttr = try FileManager.default.attributesOfItem(atPath: zipFile().path)
@@ -87,7 +87,30 @@ class Bridge {
         //}
 
         print("Server starting...")
-        listener.start(queue: .global())
+        // setupListener()
+        Bridge.instance = self
+    }
+    
+    func setupListener() {
+        let l = try! NWListener(using: .tcp, on: Bridge.port())
+        l.stateUpdateHandler = self.stateDidChange(to:)
+        l.newConnectionHandler = self.didAccept(nwConnection:)
+        l.start(queue: .global())
+        listener = l
+    }
+    
+    func reinit() {
+        print("Server re-init called")
+        let conn = connectionsByID.first
+        if conn == nil ||
+            conn?.value.connection.state == .cancelled {
+            stopListener()
+            setupListener()
+        }
+    }
+
+    static func port() -> NWEndpoint.Port {
+        return NWEndpoint.Port("23115")!
     }
     
     func setEnv(name: String, value: String) {
@@ -105,11 +128,17 @@ class Bridge {
     }
 
     func stateDidChange(to newState: NWListener.State) {
+        print("Server new state: \(newState)")
+
         switch newState {
         case .ready:
+            if erlangStarted {
+                break
+            }
+            erlangStarted = true
             print("Bridge Server ready. Starting Elixir")
             setEnv(name: "ELIXIR_DESKTOP_OS", value: "ios");
-            setEnv(name: "BRIDGE_PORT", value: (listener.port?.rawValue.description)!);
+            setEnv(name: "BRIDGE_PORT", value: (listener?.port?.rawValue.description)!);
             // not really the home directory, but persistent between app upgrades (yes?)
             setEnv(name: "HOME", value: home.path)
             // BINDIR not used on iOS but needs to be defined
@@ -125,7 +154,11 @@ class Bridge {
         case .failed(let error):
             print("Server failure, error: \(error.localizedDescription)")
             exit(EXIT_FAILURE)
+        case .cancelled:
+            print("Server failure, cancelled")
+            exit(EXIT_FAILURE)
         default:
+            print("Server unknown new state: \(newState)")
             break
         }
     }
@@ -137,7 +170,12 @@ class Bridge {
             self.connectionDidStop(connection)
         }
         connection.start()
-        // connection.send(data: "Welcome you are connection: \(connection.id)".data(using: .utf8)!)
+        let payload = "\0\0\0\0\0\0\0\0\":reconnect\"".data(using: .utf8)!
+        
+        let size: UInt32 = CFSwapInt32(UInt32(payload.count))
+        var message = withUnsafeBytes(of: size) { Data($0) }
+        message.append(payload)
+        connection.send(data: message)
         print("server did open connection \(connection.id)")
     }
     
@@ -145,11 +183,19 @@ class Bridge {
         self.connectionsByID.removeValue(forKey: connection.id)
         print("server did close connection \(connection.id)")
     }
+    
+    private func stopListener() {
+        if let l = listener {
+            l.stateUpdateHandler = nil
+            l.newConnectionHandler = nil
+            l.cancel()
+        }
+    }
 
     private func stop() {
-        self.listener.stateUpdateHandler = nil
-        self.listener.newConnectionHandler = nil
-        self.listener.cancel()
+        print("stop() called")
+
+        stopListener()
         for connection in self.connectionsByID.values {
             connection.didStopCallback = nil
             connection.stop()
