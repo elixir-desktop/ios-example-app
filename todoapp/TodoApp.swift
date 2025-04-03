@@ -11,16 +11,20 @@ struct TodoApp: App {
         }
         .onChange(of: scenePhase) { phase in
             switch phase {
-            case .background:
-                print(".background")
+            case .background, .inactive:
+                print(".\(phase)")
+                Bridge.updateActiveState(false)
             case .active:
                 print(".active")
-                if let bridge = Bridge.instance {
-                    bridge.reinit()
+                if !Bridge.isActiveState {
+                    Bridge.updateActiveState(true)
+                    if let bridge = Bridge.instance {
+                        bridge.reinit()
+                    }
                 }
-            default: break
+            @unknown default:
+                break
             }
         }
-
     }
 }
